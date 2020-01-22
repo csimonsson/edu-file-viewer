@@ -1,0 +1,27 @@
+﻿<Window x:Class="edu_file_viewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="File Viewer" 
+        Height="600" 
+        Width="500" 
+        FontSize="16">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <TreeView ItemsSource="{Binding Root}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildrenSorted}">
+                    <StackPanel Orientation="Horizontal" Height="25">
+                        <TextBlock Width="20" TextAlignment="Center" Text="&#128193;" Visibility="{Binding IsFolder, Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
+                        <TextBlock Width="20" TextAlignment="Center" FontWeight="Bold" Text="&#128459;" Visibility="{Binding IsFile, Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
+                        <TextBlock Margin="5,0" Text="{Binding Name}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </Grid>
+</Window>
