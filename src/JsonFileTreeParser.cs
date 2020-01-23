@@ -19,12 +19,15 @@ namespace edu_file_viewer
 
         public override FileTreeNode Parse()
         {
+            //Root gets name from file
             var root = new FileTreeNode {Name = Path.GetFileNameWithoutExtension(_file)};
 
             if (!File.Exists(_file))
             {
                 throw new Exception($"Json data not found: {_file}");
             }
+
+            //Deserialize to list of strings and add them to the root node recursively
 
             JsonConvert.DeserializeObject<List<string>>(File.ReadAllText(_file)).
                 ForEach(f => AddNode(root, f.Split('/').ToList()));
